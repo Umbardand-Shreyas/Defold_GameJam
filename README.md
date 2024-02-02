@@ -1,4 +1,4 @@
-Welcome to Defold
+# Welcome to Defold
 
 This project was created from the "empty" project template.
 
