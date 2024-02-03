@@ -33,7 +33,7 @@ end
 function walk(direction)
 	local position = go.get_position()
 	
-	position.x = position.x + 1*direction
+	position.x = position.x + 4*direction
 	sprite.set_hflip("#sprite", direction<0)
 
 	go.set_position(position)
