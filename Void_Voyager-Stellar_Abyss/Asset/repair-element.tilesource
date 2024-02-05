@@ -1,0 +1,97 @@
+image: "/Asset/Spritesheets/repair-materials.png"
+tile_width: 64
+tile_height: 64
+tile_margin: 0
+tile_spacing: 0
+collision: "/Asset/Spritesheets/repair-materials.png"
+material_tag: "tile"
+convex_hulls {
+  index: 0
+  count: 13
+  collision_group: ""
+}
+convex_hulls {
+  index: 13
+  count: 11
+  collision_group: ""
+}
+convex_hulls {
+  index: 24
+  count: 11
+  collision_group: ""
+}
+convex_hulls {
+  index: 35
+  count: 14
+  collision_group: ""
+}
+convex_hulls {
+  index: 49
+  count: 11
+  collision_group: ""
+}
+convex_hulls {
+  index: 60
+  count: 12
+  collision_group: ""
+}
+convex_hulls {
+  index: 72
+  count: 11
+  collision_group: ""
+}
+convex_hulls {
+  index: 83
+  count: 14
+  collision_group: ""
+}
+convex_hulls {
+  index: 97
+  count: 10
+  collision_group: ""
+}
+convex_hulls {
+  index: 107
+  count: 11
+  collision_group: ""
+}
+convex_hulls {
+  index: 118
+  count: 11
+  collision_group: ""
+}
+convex_hulls {
+  index: 129
+  count: 4
+  collision_group: "Level"
+}
+convex_hulls {
+  index: 133
+  count: 4
+  collision_group: "Level"
+}
+convex_hulls {
+  index: 137
+  count: 4
+  collision_group: "Level"
+}
+convex_hulls {
+  index: 141
+  count: 4
+  collision_group: "Level"
+}
+convex_hulls {
+  index: 145
+  count: 4
+  collision_group: "Level"
+}
+convex_hulls {
+  index: 149
+  count: 4
+  collision_group: "Level"
+}
+collision_groups: "Level"
+collision_groups: "default"
+extrude_borders: 2
+inner_padding: 0
+sprite_trim_mode: SPRITE_TRIM_MODE_OFF

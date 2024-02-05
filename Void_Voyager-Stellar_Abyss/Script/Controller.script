@@ -1,0 +1,30 @@
+
+local function show(self, proxy)
+	if self.currentProxy then
+		msg.post(self.currentProxy, "unload")
+	end
+	msg.post(proxy, "async_load")
+	pprint(proxy)
+end
+
+function init(self)
+	--defos.set_fullscreen(true)
+	pprint(window.get_size())
+	msg.post(".", "acquire_input_focus")
+	show(self, "#MenuProxy")
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("proxy_loaded") then
+		self.currentProxy = sender
+		msg.post(sender, "enable")
+	elseif message_id == hash("startGame") then
+		show(self, "/Controller#GameProxy")
+	elseif message_id == hash("instruct") then
+		show(self, "/Controller#Instruction")
+	elseif message_id == hash("back") then
+		show(self, "/Controller#MenuProxy") 
+	elseif message_id == hash("endGame") then
+		show(self, "/Controller#ExitProxy") 
+	end
+end

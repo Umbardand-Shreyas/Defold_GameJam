@@ -10,3 +10,7 @@ key_trigger {
   input: KEY_D
   action: "Right"
 }
+mouse_trigger {
+  input: MOUSE_BUTTON_1
+  action: "touch"
+}

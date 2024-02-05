@@ -1,0 +1,46 @@
+local GRAVITY = 1000
+
+function init(self)
+	self.velocity = vmath.vector3(0,0,0)
+	self.ground_contact = false
+end
+function on_message(self, message_id, message, sender)
+	if message_id == hash("trigger_response") and message.enter then
+		go.delete()
+		msg.post("/Player", "Bulb_Count")
+	end
+
+	if (message_id == hash("contact_point_response")) and message.other_group == hash("Level") then
+		handle_level_collisions(self, message.normal, message.distance)
+	end
+end
+
+local function clamp(v,min,max)
+	if v < min then return min 
+	elseif v > max then return  max 
+	else return v end
+end
+
+function fixed_update(self, dt)
+	self.velocity.y = self.velocity.y - GRAVITY*dt 
+	self.velocity.y = clamp(self.velocity.y, -2000, 2000)
+
+	if self.ground_contact then
+		self.velocity.y =0
+	end
+
+	local position = go.get_position()
+	position = position + self.velocity*dt
+	go.set_position(position)
+
+	self.velocity.x = 0
+	self.ground_contact = false
+end
+
+function handle_level_collisions(self, normal, distance)
+	if normal.y> 0 then
+		self.ground_contact = true
+		self.velocity.y = 0
+	end
+end
+

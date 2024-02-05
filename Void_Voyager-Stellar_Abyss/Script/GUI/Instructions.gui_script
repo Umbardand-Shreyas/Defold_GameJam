@@ -1,0 +1,19 @@
+local gooey = require "gooey.gooey"
+
+function init(self)
+	defos.set_cursor_visible(true)
+	gooey.acquire_input()
+end
+
+function final(self)
+	gooey.release_input()
+end
+
+function on_input(self, action_id, action)
+	local group = gooey.group("InstructionsGroup", function()
+		gooey.button("backbutton", action_id, action, function()
+			msg.post("Controller:/Controller", "back")
+		end)
+	end)
+	return group.consumed
+end

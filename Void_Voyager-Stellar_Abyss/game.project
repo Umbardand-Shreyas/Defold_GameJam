@@ -1,5 +1,5 @@
 [bootstrap]
-main_collection = /main/main.collectionc
+main_collection = /main/Controller.collectionc
 
 [script]
 shared_state = 1
@@ -14,6 +14,8 @@ input_method = HiddenInputField
 [project]
 title = Void_Voyager-Stellar_Abyss
 dependencies#0 = https://github.com/britzl/defold-orthographic/archive/master.zip
+dependencies#1 = https://github.com/britzl/gooey/archive/master.zip
+dependencies#2 = https://github.com/subsoap/defos/archive/refs/tags/v2.7.1.zip
 
 [physics]
 use_fixed_timestep = 1
