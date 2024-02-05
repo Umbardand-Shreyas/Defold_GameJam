@@ -3,8 +3,14 @@ tile_width: 128
 tile_height: 128
 tile_margin: 0
 tile_spacing: 0
-collision: ""
+collision: "/Asset/moon-ground.png"
 material_tag: "tile"
+convex_hulls {
+  index: 0
+  count: 4
+  collision_group: "Level"
+}
+collision_groups: "Level"
 collision_groups: "default"
 animations {
   id: "anim"

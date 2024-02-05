@@ -14,3 +14,7 @@ input_method = HiddenInputField
 [project]
 title = Void_Voyager-Stellar_Abyss
 
+[physics]
+use_fixed_timestep = 1
+debug = 0
+
