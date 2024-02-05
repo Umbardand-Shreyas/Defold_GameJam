@@ -1,9 +1,9 @@
-image: "/Asset/Spritesheets/repair-materials.png"
+image: "/Asset/repair-materials.png"
 tile_width: 64
 tile_height: 64
 tile_margin: 0
 tile_spacing: 0
-collision: "/Asset/Spritesheets/repair-materials.png"
+collision: "/Asset/repair-materials.png"
 material_tag: "tile"
 convex_hulls {
   index: 0

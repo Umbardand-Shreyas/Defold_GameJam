@@ -47,7 +47,7 @@ function update(self,dt)
 
 
 	local position = go.get_position()
-	if (position.x<=-433 and (self.screw_count>=2 and self.bulb_count>=2 and self.scrap_count>=2 and self.wire_count>=2)) then
+	if (position.x<=-433 and (self.screw_count>=0 and self.bulb_count>=0 and self.scrap_count>=0 and self.wire_count>=0)) then
 		msg.post("Controller:/Controller", "endGame")
 		return
 	end

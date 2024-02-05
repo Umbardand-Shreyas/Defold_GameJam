@@ -17,11 +17,11 @@ images {
 animations {
   id: "Run"
   images {
-    image: "/Asset/PNG/Players/128x256/Blue/alienBlue_walk1.png"
+    image: "/Asset/alienBlue_walk1.png"
     sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   images {
-    image: "/Asset/PNG/Players/128x256/Blue/alienBlue_walk2.png"
+    image: "/Asset/alienBlue_walk2.png"
     sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   playback: PLAYBACK_LOOP_FORWARD
@@ -32,7 +32,7 @@ animations {
 animations {
   id: "Jump"
   images {
-    image: "/Asset/PNG/Players/128x256/Blue/alienBlue_jump.png"
+    image: "/Asset/alienBlue_jump.png"
     sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   playback: PLAYBACK_LOOP_FORWARD
@@ -43,7 +43,7 @@ animations {
 animations {
   id: "Idle"
   images {
-    image: "/Asset/PNG/Players/128x256/Blue/alienBlue_stand.png"
+    image: "/Asset/alienBlue_stand.png"
     sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   playback: PLAYBACK_LOOP_FORWARD
