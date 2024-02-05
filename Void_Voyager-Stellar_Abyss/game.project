@@ -13,6 +13,7 @@ input_method = HiddenInputField
 
 [project]
 title = Void_Voyager-Stellar_Abyss
+dependencies#0 = https://github.com/britzl/defold-orthographic/archive/master.zip
 
 [physics]
 use_fixed_timestep = 1
