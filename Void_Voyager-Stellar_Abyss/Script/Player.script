@@ -1,0 +1,165 @@
+local DIRECTION_LEFT = -1
+local DIRECTION_RIGHT = 1
+local BASE_VELOCITY = 500
+local GRAVITY = 1000
+local JUMP_TAKEOFF = 600
+
+
+function init(self)
+	msg.post(".", "acquire_input_focus")
+	self.velocity = vmath.vector3(0,0,0)
+	self.ground_contact = false
+	self.correction = vmath.vector3(0,0,0)
+	self.timer = 0
+	self.screw_count = 0
+	self.wire_count = 0
+	self.bulb_count = 0
+	self.scrap_count = 0
+	math.randomseed(os.time())
+end
+
+function update(self,dt)
+	self.timer = self.timer + dt
+	local number = math.random(0,4)
+	if self.timer >5 then 
+		if number == 1 then
+			local position = go.get_position()
+			local Screw_Position = vmath.vector3(position.x + math.random(400,1000),position.y+50,0)
+			factory.create("/Player#screw_factory",Screw_Position) 
+			self.timer = 0
+		elseif number == 2 then
+			local position = go.get_position()
+			local Wire_Position = vmath.vector3(position.x + math.random(400,1000),position.y+50,0)
+			factory.create("/Player#wire_factory",Wire_Position) 
+			self.timer = 0
+		elseif number == 3 then
+			local position = go.get_position()
+			local Bulb_Position = vmath.vector3(position.x + math.random(400,1000),position.y+50,0)
+			factory.create("/Player#bulb_factory",Bulb_Position) 
+			self.timer = 0
+		elseif number == 4 then
+			local position = go.get_position()
+			local Scrap_Position = vmath.vector3(position.x + math.random(400,1000),position.y+50,0)
+			factory.create("/Player#scrap_factory",Scrap_Position) 
+			self.timer = 0
+		end
+	end
+
+
+	local position = go.get_position()
+	if (position.x<=-433 and (self.screw_count>=0 and self.bulb_count>=0 and self.scrap_count>=0 and self.wire_count>=0)) then
+		msg.post("Controller:/Controller", "endGame")
+		return
+	end
+end
+
+local function clamp(v,min,max)
+	if v < min then return min 
+	elseif v > max then return  max 
+	else return v end
+end
+
+function fixed_update(self, dt)
+
+	self.velocity.y = self.velocity.y - GRAVITY*dt 
+	self.velocity.y = clamp(self.velocity.y, -2000, 2000)
+
+	if self.ground_contact then
+		self.velocity.y =0
+	end
+	
+	local position = go.get_position()
+	position = position + self.velocity*dt
+	go.set_position(position)
+
+	animate(self)
+	self.velocity.x = 0
+	self.ground_contact = false
+	self.correction.x = 0
+	self.correction.y = 0
+end
+
+function handle_level_collisions(self, normal, distance)
+
+	distance = distance* vmath.length(normal)
+
+	if distance > 0 then 
+		local extend = vmath.project(self.correction,normal*distance)
+		if extend < 1 then
+			local compensation = (distance - distance*extend)*normal
+			go.set_position(go.get_position()+compensation)
+			self.correction = self.correction + compensation
+		end
+
+	end
+
+	if math.abs(normal.x) > 0 then
+		self.velocity.x = 0
+	end
+	if normal.y> 0 then
+		self.ground_contact = true
+		self.velocity.y = 0
+	end
+
+	if normal.y<0 then
+		self.velocity.y = 0
+	end
+end
+
+function on_message(self, message_id, message, sender)
+	if (message_id == hash("contact_point_response")) and message.other_group == hash("Level") then
+		handle_level_collisions(self, message.normal, message.distance)
+	end
+
+	if message_id == hash("Screw_Count") then
+		self.screw_count = self.screw_count + 1
+	end
+
+	if message_id == hash("Scrap_Count") then
+		self.scrap_count = self.scrap_count + 1 
+	end
+
+	if message_id == hash("Wire_Count") then
+		self.wire_count = self.wire_count + 1
+	end
+
+	if message_id == hash("Bulb_Count") then
+		self.bulb_count = self.bulb_count + 1
+	end
+end
+
+
+function walk(self)
+	self.velocity.x = BASE_VELOCITY * self.direction
+end
+
+function flip(direction)
+	sprite.set_hflip("#sprite", direction<0)
+end
+
+
+function animate(self) 
+	if self.ground_contact then
+		if self.velocity.x == 0 then
+			sprite.play_flipbook("#sprite", "Idle")
+		else
+			sprite.play_flipbook("#sprite", "Run")
+		end
+	else
+		sprite.play_flipbook("#sprite", "Jump")
+	end
+end
+
+
+
+function on_input(self, action_id, action)
+	if action_id ~= hash("Jump")then
+		self.direction = (action_id == hash("Right")) and DIRECTION_RIGHT or DIRECTION_LEFT
+		walk(self)
+		flip(self.direction)
+	elseif action.pressed and self.ground_contact then
+		self.velocity.y = JUMP_TAKEOFF
+		self.ground_contact = false
+	end
+
+end
